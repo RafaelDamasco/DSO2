@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 public class Comanda {
 	
-	public Comanda(String nomeCliente, double valorTotal, Usuario usuarioAbertura, ArrayList<Pedido> pedidos,
+	protected String nomeCliente;
+	protected double valorTotal;
+	protected Usuario UsuarioAbertura;
+	protected ArrayList<Pedido> pedidos;
+	protected Estado estado;
+	protected long id;
+	
+	public Comanda(String nomeCliente, double valorTotal, Usuario usuarioAbertura, ArrayList<Pedido> pedidos, 
 			Estado estado, long id) {
 		super();
 		this.nomeCliente = nomeCliente;
@@ -14,13 +21,6 @@ public class Comanda {
 		this.estado = estado;
 		this.id = id;
 	}
-	
-	protected String nomeCliente;
-	protected double valorTotal;
-	protected Usuario UsuarioAbertura;
-	protected ArrayList<Pedido> pedidos;
-	protected Estado estado;
-	protected long id;
 	
 	public String getNomeCliente() {
 		return nomeCliente;
@@ -54,8 +54,5 @@ public class Comanda {
 	}
 	public long getId() {
 		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 }

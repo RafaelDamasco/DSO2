@@ -1,22 +1,43 @@
 package ine;
 
-public class Usuario {
+import java.util.ArrayList;
+import java.util.List;
+
+import view.LoginEvent;
+import view.LoginListener;
+
+public class Usuario implements ILogar{
 	
 	protected String nome;
 	protected long id;
 	protected Tipo tipo;
 	protected String username;
 	protected String password;
+    protected List<LoginListener> listeners;
 
-	public Usuario(String nome, long id, Tipo tipo, String username, String password) {
+	public Usuario() {
 		super();
-		this.nome = nome;
-		this.id = id;
-		this.tipo = tipo;
-		this.username = username;
-		this.password = password;
+		this.username = "oi";
+		this.password = "oi";
+        this.listeners = new ArrayList<>();
+	}
+
+
+
+	@Override
+	public void logar(String username, String password) {
+		this.fireLoginEvent(this.username.equals(username) && this.password.equals(password));
 	}
 	
+	@Override
+	public void addListener(LoginListener listener){
+        this.listeners.add(listener);
+	}
+
+	private void fireLoginEvent(boolean resultadoLogin) {
+		for(LoginListener listener : this.listeners)
+            listener.loginRealizado(new LoginEvent(this, resultadoLogin));	
+	}
 
 	public String getNome() {
 		return nome;
@@ -26,9 +47,6 @@ public class Usuario {
 	}
 	public long getId() {
 		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 	public Tipo getTipo() {
 		return tipo;
